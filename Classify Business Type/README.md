@@ -1,4 +1,4 @@
-# 🏪 Classify Business Type
+# 🏷️ Classify Business Type (Restaurant, Cafe, School, or Other)
 
 **Question ID**: 9726  
 **Platform**: [StrataScratch](https://platform.stratascratch.com/coding/9726-classify-business-type?code_type=6)  
@@ -10,41 +10,65 @@
 
 ## 🧾 Problem Statement
 
-Classify each business in the `yelp_business` table as either a **Restaurant** or **Non-Restaurant** based on its name.
+Classify each business in the `sf_restaurant_health_violations` table into one of the following types:
 
-If the business name contains food-related keywords such as `'restaurant'`, `'cafe'`, `'bar'`, `'bistro'`, or `'diner'` (case-insensitive), label it as a **Restaurant**. Otherwise, label it as **Non-Restaurant**.
+- `'restaurant'` if the business name contains the word `'restaurant'`
+- `'cafe'` if it contains `'cafe'`, `'café'`, or `'coffee'`
+- `'school'` if it contains the word `'school'`
+- `'other'` for all remaining businesses
+
+Ensure:
+- Only **distinct business names** are returned
+- If multiple records exist for the same business name, retain only **one unique instance**
 
 ---
 
 ## 📊 Table Schema
 
-**Table**: `yelp_business`
+**Table**: `sf_restaurant_health_violations`
 
-| Column Name | Data Type |
-|-------------|-----------|
-| business_id | integer   |
-| name        | string    |
+| Column Name           | Data Type |
+|------------------------|-----------|
+| business_id            | bigint    |
+| business_name          | string    |
+| business_address       | string    |
+| business_city          | string    |
+| business_state         | string    |
+| business_postal_code   | double    |
+| business_latitude      | double    |
+| business_longitude     | double    |
+| business_location      | string    |
+| business_phone_number  | double    |
+| inspection_id          | string    |
+| inspection_date        | date      |
+| inspection_score       | double    |
+| inspection_type        | string    |
+| violation_id           | string    |
+| violation_description  | string    |
+| risk_category          | string    |
 
 ---
 
 ## 🧠 Approach
 
-1. Identify a list of **keywords** related to restaurants (e.g., `'restaurant'`, `'cafe'`, `'bar'`, `'bistro'`, `'diner'`).
-2. Perform a **case-insensitive check** on the `name` field using `LIKE`, `ILIKE`, or regex.
-3. Use conditional logic to assign:
-   - `'Restaurant'` if a match is found.
-   - `'Non-Restaurant'` otherwise.
-4. Return the `business_id`, `name`, and a new column `business_type`.
+1. Convert `business_name` to lowercase to perform **case-insensitive** matching.
+2. Apply conditional logic:
+   - If `'restaurant'` is in the name → classify as `'restaurant'`
+   - If `'cafe'`, `'café'`, or `'coffee'` → classify as `'cafe'`
+   - If `'school'` → classify as `'school'`
+   - Else → `'other'`
+3. Select **distinct** business names and their classification.
 
 ---
 
 ## ✅ Sample Output
 
-| business_id | name                 | business_type   |
-|-------------|----------------------|------------------|
-| 1           | John's Cafe          | Restaurant       |
-| 2           | Tech Solutions       | Non-Restaurant   |
-| 3           | Sunset Bar & Grill   | Restaurant       |
-| 4           | Bookstore Central    | Non-Restaurant   |
+| business_name         | business_type |
+|------------------------|----------------|
+| Joe’s Coffee House     | cafe           |
+| San Francisco School   | school         |
+| Panda Restaurant       | restaurant     |
+| Lucky Laundromat       | other          |
 
 ---
+
