@@ -4,7 +4,7 @@
 - **Source**: [StrataScratch](https://platform.stratascratch.com/coding/2005-share-of-active-users?code_type=6)  
 - **Difficulty**: Medium  
 - **Company Tag**: Facebook  
-- **Role Tags**: Data Engineer, Data Scientist, BI Analyst, Data Analyst
+- **Role Tags**: Data Engineer, Data Scientist
 
 ---
 
